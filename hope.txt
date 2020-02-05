@@ -1,0 +1,94 @@
+create table person
+(
+  driver_id varchar2(10),
+  name varchar2(20),
+  address varchar2(15),
+  primary key(DRIVER_ID)
+  );
+insert into person values('&driver_id','&name','&address');
+insert into person values('&driver_id','&name','&address');
+insert into person values('&driver_id','&name','&address');
+insert into person values('&driver_id','&name','&address');
+insert into person values('&driver_id','&name','&address');
+commit;
+select * from tab;
+select * from PERSON;
+create table car
+(
+ regno varchar2(10),
+ MODEL varchar2(10),
+ year number(4),
+ primary key(regno)
+ );
+commit;
+
+);
+Insert into car values('&regno','&model','&year');
+commit;
+select * from car;
+CREATE TABLE ACCIDENT
+
+(
+
+REPORT_NO NUMBER(5),
+
+ADATE DATE,
+
+LOCATION VARCHAR2(15),
+
+PRIMARY KEY(REPORT_NO)
+
+);
+commit;
+INSERT INTO ACCIDENT VALUES('26500','16-OCT-01','RICHMOND-ROAD');
+INSERT INTO ACCIDENT VALUES('200','10-DEC-02','DOUBLE-ROAD');
+commit;
+select * from Accident;
+CREATE TABLE OWNS
+
+(
+
+DRIVER_ID VARCHAR2(10),
+
+REGNO VARCHAR2(10),
+
+PRIMARY KEY(DRIVER_ID,REGNO),
+
+FOREIGN KEY(DRIVER_ID) REFERENCES PERSON(DRIVER_ID),
+
+FOREIGN KEY(REGNO) REFERENCES CAR(REGNO)
+
+);
+commit;
+INSERT INTO OWNS VALUES('4444','KA01P4020');
+commit;
+select * from owns;
+CREATE TABLE PARTICIPATED
+
+(
+
+DRIVER_ID VARCHAR2(10),
+
+REGNO VARCHAR2(10),
+
+REPORT_NO NUMBER(5),
+
+DAMAGE_AMT NUMBER(7,2),
+
+PRIMARY KEY(DRIVER_ID,REGNO,REPORT_NO),
+
+FOREIGN KEY(DRIVER_ID,REGNO) REFERENCES OWNS(DRIVER_ID,REGNO) ON DELETE CASCADE,
+
+FOREIGN KEY(REPORT_NO) REFERENCES ACCIDENT(REPORT_NO) ON
+
+DELETE CASCADE
+
+);
+INSERT INTO PARTICIPATED VALUES('3333','KA03L9999','12',10000);
+commit;
+Select *from participated;
+update participated set damage_amt=25000 where report_no=12 and regno='KA04Q2301';
+commit;
+select * from participated;
+SELECT COUNT(*) FROM ACCIDENT WHERE ADATE LIKE '__-___-02';
+SELECT COUNT(A.REPORT_NO) FROM ACCIDENT A, PARTICIPATED P, CAR C WHERE A.REPORT_NO=P.REPORT_NO AND P.REGNO=C.REGNO AND C.MODEL='MARUTHI-DX';

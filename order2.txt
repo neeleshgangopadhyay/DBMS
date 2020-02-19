@@ -1,0 +1,50 @@
+create table customer1(
+ cust_no number(20),
+ cname varchar(20),
+ city varchar(25),
+ primary key(cust_no)
+ );
+ drop table customer1;
+ create table order1
+ (
+   order_no number(15),
+   odate date,
+   cust_no number(20),
+   order_amount number(20),
+   primary key(order_no),
+   foreign key(cust_no) references customer1(cust_no)
+);
+create table item(
+item_no number(20),
+price number(10,2),
+primary key(item_no)
+);
+create table order1_item
+(
+  order_no number(20),
+  item_no number(20),
+  qty number(5),
+
+  foreign key(order_no) references order1(order_no),
+  foreign key(item_no) references  item(item_no)
+
+);
+create table warehouse(
+warehouse_no number(20),
+city varchar2(30),
+primary key(warehouse_no)
+);
+create table shipment(
+order_no number(20),
+warehouse_no number(20),
+Adate date,
+foreign key(order_no) references order1(order_no),
+foreign key(warehouse_no) references warehouse
+);
+insert into customer1 values(771,'PUSHPA K','BANGALORE');  
+insert into customer1 values(772,'SUMAN','MUMBAI');
+insert into customer1 values(773,'SOURAV','CALICUT');
+insert into customer1 values(774,'LAILA','HYDERABAD');
+insert into customer1 values(775,'FAIZAL','BANGALORE');
+commit;
+select * from customer1;
